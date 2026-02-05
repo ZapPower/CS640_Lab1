@@ -98,6 +98,6 @@ public class Iperfer {
         // Calculate Mbps
         float Mbps = ((float)(KB * 8) / 1000) / seconds;
 
-        System.out.println(isServer ? "received" : "sent" + "=" + KB + " KB  rate=" + Mbps + " Mbps");
+        System.out.println((isServer ? "received" : "sent") + "=" + KB + " KB  rate=" + Mbps + " Mbps");
     }
 }
