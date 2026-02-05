@@ -1,7 +1,7 @@
 public class Iperfer {
     private static final int BYTES_PER_PKT = 1000;
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         if (args.length < 1) {
             System.err.println("Error: missing or additional arguments");
             return;
@@ -52,7 +52,7 @@ public class Iperfer {
         long totalBytes = c.run(seconds);
         System.out.println("Done!");
 
-        calculateTraffic(totalBytes, seconds);
+        calculateTraffic(totalBytes, seconds, false);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Iperfer {
         long[] output = server.run();
         System.out.println("Done!");
 
-        calculateTraffic(output[0], output[1]);
+        calculateTraffic(output[0], output[1], true);
     }
 
     /**
@@ -89,14 +89,15 @@ public class Iperfer {
      *
      * @param totalBytes total number of bytes sent/received during connection
      * @param seconds total number of seconds elapsed during connection
+     * @param isServer flag for whether this is a server for output logging
      */
-    private static void calculateTraffic(long totalBytes, long seconds) {
+    private static void calculateTraffic(long totalBytes, long seconds, boolean isServer) {
         // Get # KB. No rounding as we send 1KB/Pkt
         long KB = totalBytes / 1000;
 
         // Calculate Mbps
         float Mbps = ((float)(KB * 8) / 1000) / seconds;
 
-        System.out.println("sent=" + KB + " KB  rate=" + Mbps + " Mbps");
+        System.out.println(isServer ? "received" : "sent" + "=" + KB + " KB  rate=" + Mbps + " Mbps");
     }
 }
